@@ -14,7 +14,7 @@ defmodule Exgetapi.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger, :cowboy, :plug, :poison],
       mod: {Exgetapi.Application, []}
     ]
   end
@@ -25,7 +25,11 @@ defmodule Exgetapi.MixProject do
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
       {:ecto_sql, "~> 3.6.1"},
-      {:postgrex, "~> 0.15.9"}
+      {:postgrex, "~> 0.15.9"},
+      {:cowboy, "~> 2.9"},
+      {:plug, "~> 1.11"},
+      {:poison, "~> 4.0"},
+      {:plug_cowboy, "~> 2.5"}
     ]
   end
 end
