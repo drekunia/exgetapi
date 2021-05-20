@@ -1,6 +1,8 @@
 # The directory Mix will write compiled artifacts to.
 /_build/
 
+config.exs
+
 # If you run "mix test --cover", coverage assets end up here.
 /cover/
 
@@ -24,3 +26,6 @@ exgetapi-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# ElixirLS extension
+/.elixir_ls/

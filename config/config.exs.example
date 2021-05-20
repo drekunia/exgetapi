@@ -1,0 +1,10 @@
+import Config
+
+config :exgetapi, ecto_repos: [Exgetapi.Repo]
+
+config :exgetapi, Exgetapi.Repo,
+  database: "exgetapi_repo",
+  username: "postgres",
+  password: "postgres",
+  hostname: "localhost",
+  port: "5432"
