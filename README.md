@@ -15,7 +15,7 @@ Run these commands in terminal:
 - `mix deps.get`
 - `cp config/config.exs.example config/config.exs`
 
-Set your database configuration in `config/config.exs`, then run:
+Set your PostgreSQL database configuration in `config/config.exs`, then run:
 
 - `mix ecto.create && mix ecto.migrate`
 
@@ -29,7 +29,7 @@ Then run:
 
 The server runs on port `:4000` by default. You can change it in `lib/exgetapi/application.ex` on line `16`.
 <br>
-Send GET requests using Postman or your web browser.
+You can send GET requests using Postman or your web browser.
 
 <!-- If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `exgetapi` to your list of dependencies in `mix.exs`:

@@ -99,7 +99,7 @@ defmodule Exgetapi do
     conn |> respond(code, payload)
   end
 
-  # error message: invalid id (id must be a string of integer or integers separated by commas)
+  # error message: invalid id
   defp invalid_id(conn, string_ids) do
     conn |> send_result(400, "invalid or empty ID: \"#{string_ids}\"")
   end
