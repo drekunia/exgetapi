@@ -21,14 +21,14 @@ Set your PostgreSQL database configuration in `config/config.exs`, then run:
 
 You can add you own records to database, or use the seeder:
 
-- `mix run priv/repo/seed/seeds.exs`
+- `mix run priv/repo/seeds.exs`
 
 Then run:
 
 - `iex -S mix`
 
 The server runs on port `:4000` by default. You can change it in `lib/exgetapi/application.ex` on line `16`.
-<br>
+<br><br>
 You can send GET requests using Postman or your web browser.
 
 <!-- If [available in Hex](https://hex.pm/docs/publish), the package can be installed
