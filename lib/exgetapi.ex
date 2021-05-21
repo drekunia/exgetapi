@@ -1,10 +1,10 @@
 defmodule Exgetapi do
-  require Protocol
-  alias Exgetapi.Name
-  alias Exgetapi.Repo
   import Ecto.Query
   import Plug.Conn
+  require Protocol
   require Enum
+  alias Exgetapi.Name
+  alias Exgetapi.Repo
 
   # strip meta from Name in Jason.encode
   Protocol.derive(Jason.Encoder, Name, except: [:__meta__])

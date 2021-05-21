@@ -2,6 +2,7 @@ import Config
 
 config :exgetapi, ecto_repos: [Exgetapi.Repo]
 
+# database configuration
 config :exgetapi, Exgetapi.Repo,
   database: "exgetapi_repo",
   username: "postgres",
