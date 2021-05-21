@@ -10,7 +10,12 @@ defmodule Exgetapi.Application do
     children = [
       # Starts a worker by calling: Exgetapi.Worker.start_link(arg)
       # {Exgetapi.Worker, arg}
-      Plug.Adapters.Cowboy.child_spec(scheme: :http, plug: Exgetapi.Router, options: [port: 4000])
+      Plug.Adapters.Cowboy.child_spec(
+        scheme: :http,
+        plug: Exgetapi.Router,
+        options: [port: 4000]
+      ),
+      Exgetapi.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

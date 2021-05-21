@@ -29,7 +29,8 @@ defmodule Exgetapi.MixProject do
       {:cowboy, "~> 2.9"},
       {:plug, "~> 1.11"},
       {:poison, "~> 4.0"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:jason, "~> 1.2"}
     ]
   end
 end
