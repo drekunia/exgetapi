@@ -27,7 +27,6 @@ defmodule Exgetapi.MixProject do
       {:ecto_sql, "~> 3.6.1"},
       {:postgrex, "~> 0.15.9"},
       {:cowboy, "~> 2.9"},
-      {:plug, "~> 1.11"},
       {:poison, "~> 4.0"},
       {:plug_cowboy, "~> 2.5"},
       {:jason, "~> 1.2"}

@@ -11,7 +11,7 @@ defmodule Exgetapi.Application do
     children = [
       # Starts a worker by calling: Exgetapi.Worker.start_link(arg)
       # {Exgetapi.Worker, arg}
-      Plug.Adapters.Cowboy.child_spec(
+      Plug.Cowboy.child_spec(
         scheme: :http,
         plug: Exgetapi.Router,
         options: [port: port()]
