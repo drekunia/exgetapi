@@ -21,7 +21,7 @@ Set your PostgreSQL database configuration in `config/config.exs`, then run:
 
 - `mix ecto.create && mix ecto.migrate`
 
-You can add you own records to database, or use the seeder:
+You can add your own records to database, or use the seeder:
 
 - `mix run priv/repo/seeds.exs`
 
@@ -29,17 +29,16 @@ Then run:
 
 - `iex -S mix`
 
-The server runs on port `4000` by default. You can change it in `config/config.exs`.
+The server runs on port `4000` for development and port `4002` for testing by default. You can change them in corresponding `config` files.
 
 ## How to use
 
-Send GET requests with parameter `id` with value of a number or numbers separated by commas (e.g. `/?id=7` or `/?id=1,13,5`).
-<br>
-Other parameters will be ignored.
-<br>
-GET request with no `id` will return all data.
-<br><br>
-Run tests by running `mix test` in terminal.
+- Send GET requests with parameter `id` with value of a number or numbers separated by commas
+  <br>
+  (e.g. `/?id=7` or `/?id=1,13,5`)
+- Other parameters will be ignored
+- GET request with no `id` will return all data
+- Run tests by running `mix test` in terminal
 
 <!-- If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `exgetapi` to your list of dependencies in `mix.exs`:

@@ -28,8 +28,10 @@ defmodule ExgetapiTest do
   end
 
   test "Request with multiple ids" do
+    # adding 1  to names count (there will be no such id in names)
     id = Repo.aggregate(from(n in "names"), :count, :id) + 1
 
+    # there are 3 ids, but it should return only 2 records
     conn =
       :get
       |> conn("/?id=1,3,#{id}")
@@ -50,6 +52,7 @@ defmodule ExgetapiTest do
   end
 
   test "Request with id not found" do
+    # adding 1  to names count (there will be no such id in names)
     id = Repo.aggregate(from(n in "names"), :count, :id) + 1
 
     conn =

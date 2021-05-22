@@ -1,0 +1,11 @@
+use Mix.Config
+
+# server listening port
+config :exgetapi, Exgetapi.Application, port: 4001
+
+database_url = ""
+
+config :exgetapi, Exgetapi.Repo,
+  # ssl: true,
+  url: database_url,
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
