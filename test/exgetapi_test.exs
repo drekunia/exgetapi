@@ -7,60 +7,110 @@ defmodule ExgetapiTest do
 
   @opts Router.init([])
 
+  # get request
+  defp conn_get(params) do
+    :get
+    |> Plug.Test.conn(params)
+    |> Router.call(@opts)
+  end
+
+  # count name records
+  defp name_count, do: Repo.aggregate(from(n in "names"), :count, :id)
+
+  # generate random name.id
+  defp random_id, do: Enum.random(1..name_count())
+
+  # get data list
+  defp list_resp(conn) do
+    %{"data" => list} = Jason.decode!(conn.resp_body)
+    list
+  end
+
+  # single id data list
+  defp single_record(conn) do
+    [record] = list_resp(conn)
+    record
+  end
+
+  # response data list count
+  defp list_count(conn), do: Enum.count(list_resp(conn))
+
   test "Request without parameter id" do
-    conn =
-      :get
-      |> conn("/")
-      |> Router.call(@opts)
+    conn = conn_get("/")
 
     assert conn.state == :sent
     assert conn.status == 200
+    assert list_count(conn) == name_count()
   end
 
   test "Request with single id" do
-    conn =
-      :get
-      |> conn("/?id=2")
-      |> Router.call(@opts)
+    id = random_id()
+    conn = conn_get("/?id=#{id}")
+    s = single_record(conn)
 
     assert conn.state == :sent
     assert conn.status == 200
+    assert s["id"] == id
   end
 
   test "Request with multiple ids" do
-    # adding 1  to names count (there will be no such id in names)
-    id = Repo.aggregate(from(n in "names"), :count, :id) + 1
-
-    # there are 3 ids, but it should return only 2 records
-    conn =
-      :get
-      |> conn("/?id=1,3,#{id}")
-      |> Router.call(@opts)
+    # 3 ids provided, get 2 records
+    # 1 id is not exist
+    id = [1, 2, name_count() + 1]
+    conn = conn_get("/?id=#{Enum.at(id, 0)},#{Enum.at(id, 1)},#{Enum.at(id, 2)}")
 
     assert conn.state == :sent
     assert conn.status == 200
+    assert list_count(conn) == 2
   end
 
   test "Request with invalid id" do
-    conn =
-      :get
-      |> conn("/?id=xxx")
-      |> Router.call(@opts)
+    conn = conn_get("/?id=xxx")
 
     assert conn.state == :sent
     assert conn.status == 400
   end
 
   test "Request with id not found" do
-    # adding 1  to names count (there will be no such id in names)
-    id = Repo.aggregate(from(n in "names"), :count, :id) + 1
-
-    conn =
-      :get
-      |> conn("/?id=#{id}")
-      |> Router.call(@opts)
+    id = name_count() + 1
+    conn = conn_get("/?id=#{id}")
 
     assert conn.state == :sent
     assert conn.status == 404
+  end
+
+  test "Request with empty id" do
+    conn = conn_get("/?id=")
+
+    assert conn.state == :sent
+    assert conn.status == 400
+  end
+
+  test "Request with duplicate ids" do
+    id = random_id()
+    # duplicate single random_id 1-10 times
+    conn = conn_get("/?id=#{Enum.join(Enum.map(1..10, fn _ -> id end), ",")}")
+    s = single_record(conn)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+    assert s["id"] == id
+  end
+
+  test "Request with invalid id string and numbers separated by commas" do
+    conn = conn_get("/?id=xxx,yyy,1,#{random_id()}")
+
+    assert conn.state == :sent
+    assert conn.status == 400
+  end
+
+  test "Request with different parameters and single id" do
+    id = random_id()
+    conn = conn_get("/?foo=1&bar=2&id=#{id}")
+    s = single_record(conn)
+
+    assert conn.state == :sent
+    assert conn.status == 200
+    assert s["id"] == id
   end
 end
