@@ -1,8 +1,10 @@
 defmodule ExgetapiTest do
-  use ExUnit.Case
-  doctest Exgetapi
+  use ExUnit.Case, async: true
+  use Plug.Test
 
-  test "greets the world" do
-    assert Exgetapi.hello() == :world
+  test "Getting data" do
+    conn = :get |> conn("/")
+    assert conn.state == :sent
+    assert conn.status == 200
   end
 end

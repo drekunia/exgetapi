@@ -2,7 +2,6 @@ defmodule Exgetapi do
   import Ecto.Query
   import Plug.Conn
   require Protocol
-  require Enum
   alias Exgetapi.Name
   alias Exgetapi.Repo
 

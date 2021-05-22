@@ -2,6 +2,8 @@
 
 <!-- **TODO: Add description** -->
 
+An HTTP GET API that filters dummy name and ID data based on value of request parameter `id`
+
 ## Requirements
 
 Elixir and PostgreSQL installed
@@ -27,9 +29,17 @@ Then run:
 
 - `iex -S mix`
 
-The server runs on port `:4000` by default. You can change it in `lib/exgetapi/application.ex` on line `16`.
+The server runs on port `4000` by default. You can change it in `config/config.exs`.
+
+## How to use
+
+Send GET requests with parameter `id` with value of a number or numbers separated by commas (e.g. `/?id=7` or `/?id=1,13,5`).
+<br>
+Other parameters will be ignored.
+<br>
+GET request with no `id` will return all data.
 <br><br>
-You can send GET requests using Postman or your web browser.
+Run tests by running `mix test` in terminal.
 
 <!-- If [available in Hex](https://hex.pm/docs/publish), the package can be installed
 by adding `exgetapi` to your list of dependencies in `mix.exs`:
