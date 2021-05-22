@@ -35,17 +35,19 @@ defmodule Exgetapi do
       else: conn |> invalid_id(string_ids)
   end
 
-  # parse string_id in list_ids into ints
+  # parse string_id in list_ids into ints and remove duplicates
   defp enum_list_ids(conn, list_ids) when list_ids != [] do
     enum_ids =
-      Enum.flat_map(list_ids, fn string_id ->
-        case Integer.parse(string_id) do
-          # transform to integer
-          {int_id, _} -> [int_id]
-          # skip the value
-          :error -> []
-        end
-      end)
+      Enum.uniq(
+        Enum.flat_map(list_ids, fn string_id ->
+          case Integer.parse(string_id) do
+            # transform to integer
+            {int_id, _} -> [int_id]
+            # skip the value
+            :error -> []
+          end
+        end)
+      )
 
     query_enum_ids(conn, enum_ids)
   end
