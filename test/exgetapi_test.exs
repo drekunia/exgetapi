@@ -57,7 +57,7 @@ defmodule ExgetapiTest do
     # 3 ids provided, get 2 records
     # 1 id is not exist
     id = [1, 2, name_count() + 1]
-    conn = conn_get("/?id=#{Enum.at(id, 0)},#{Enum.at(id, 1)},#{Enum.at(id, 2)}")
+    conn = conn_get("/?id=#{Enum.join(id, ",")}")
 
     assert conn.state == :sent
     assert conn.status == 200
@@ -112,5 +112,13 @@ defmodule ExgetapiTest do
     assert conn.state == :sent
     assert conn.status == 200
     assert s["id"] == id
+  end
+
+  test "Request with trailing commas after numbers" do
+    # generate random_id 1-10 times and add comma at the end
+    conn = conn_get("/?id=#{Enum.join(Enum.map(1..10, fn _ -> random_id() end), ",")},")
+
+    assert conn.state == :sent
+    assert conn.status == 400
   end
 end
